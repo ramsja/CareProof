@@ -1,0 +1,46 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next.js
+.next/
+out/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# database
+prisma/dev.db
+prisma/dev.db-journal
+prisma/*.db
+
+# hardhat
+hardhat-artifacts/
+artifacts/
+cache/
+typechain-types/
+
+# testing
+/coverage
+/playwright-report
+/test-results
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+
+.kiro
+
+# nested local sqlite
+prisma/prisma/
+**/*.db
+**/*.db-journal
+
+
+# never commit npm tokens
+.npmrc
+

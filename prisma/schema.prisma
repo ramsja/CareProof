@@ -1,0 +1,93 @@
+// Prisma schema for CareProof
+// Database: SQLite (local development)
+// Run: npx prisma migrate dev --name init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Record {
+  id                   String    @id @default(cuid())
+  title                String
+  category             String
+  providerName         String
+  serviceDate          DateTime
+  description          String
+  externalReference    String?
+  /// Lowercase EVM address of the record owner
+  ownerAddress         String
+  /// keccak256 hex hash of the normalised record (0x-prefixed)
+  dataHash             String
+  /// ID assigned by the smart contract after confirmed registration
+  blockchainRecordId   String?
+  transactionHash      String?
+  blockNumber          String?
+  blockchainStatus     String    @default("draft")
+  verificationStatus   String    @default("not_verified")
+  deactivated          Boolean   @default(false)
+  confirmationTime     DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  activities Activity[]
+
+  @@index([ownerAddress])
+  @@index([blockchainStatus])
+  @@index([verificationStatus])
+}
+
+model Activity {
+  id              String   @id @default(cuid())
+  recordId        String?
+  /// Lowercase EVM address that performed or relates to the activity
+  walletAddress   String
+  eventName       String
+  transactionHash String?
+  blockNumber     String?
+  blockchainRecordId String?
+  /// JSON blob of decoded event arguments
+  eventArgs       String?
+  timestamp       DateTime @default(now())
+
+  record Record? @relation(fields: [recordId], references: [id], onDelete: SetNull)
+
+  @@index([walletAddress])
+  @@index([recordId])
+  @@index([eventName])
+}
+
+/// Last successfully processed block for local chain event indexing.
+/// Used by the blockchain event indexer (see /indexer).
+model ChainCursor {
+  id                 String   @id @default(cuid())
+  chainId            Int      @unique
+  lastProcessedBlock Int
+  updatedAt          DateTime @updatedAt
+}
+
+/// Normalized blockchain log stored by the event indexer.
+/// Distinct from Activity (which is app-written after wallet transactions).
+model IndexedEvent {
+  id               String   @id @default(cuid())
+  chainId          Int
+  contractAddress  String
+  eventName        String
+  blockNumber      Int
+  blockHash        String
+  transactionHash  String
+  transactionIndex Int
+  logIndex         Int
+  /// JSON string of decoded event arguments
+  payload          String
+  processedAt      DateTime @default(now())
+
+  @@unique([chainId, transactionHash, logIndex])
+  @@index([eventName])
+  @@index([blockNumber])
+  @@index([transactionHash])
+}
