@@ -2,7 +2,7 @@
   "name": "careproof",
   "version": "1.0.0",
   "private": true,
-  "description": "CareProof — Blockchain Record Integrity and Access Portal by TechHavenLabs",
+  "description": "CareProof — Web3 wallet architecture, transaction flows, and on-chain registry for Next.js (Hardhat + Wagmi/Viem)",
   "scripts": {
     "dev": "node scripts/dev.js",
     "dev:next": "next dev",
@@ -16,7 +16,7 @@
     "chain": "hardhat node",
     "contract:compile": "hardhat compile",
     "contract:test": "hardhat test",
-    "contract:deploy:local": "hardhat run scripts/deploy.ts --network localhost",
+    "contract:deploy:local": "hardhat run contracts/scripts/deploy.ts --network localhost",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev --name init",
     "db:seed": "tsx prisma/seed.ts",

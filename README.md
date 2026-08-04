@@ -1,9 +1,43 @@
 # CareProof
 
 **Blockchain Record Integrity and Access Portal**  
-by [TechHavenLabs](https://technavenlabs.com)
+Web3 integration layer for a Next.js platform · wallet, transactions, deployed contracts, on-chain app surface
 
-CareProof demonstrates how cryptographic hashing and a smart contract registry can establish tamper-evident healthcare records without storing personal health information on-chain. Only the `keccak256` hash of a normalised record is registered in the smart contract — all descriptive data is stored locally.
+> Portfolio / evaluation project demonstrating production-style Web3 engineering on top of a full-stack Next.js app.  
+> Original evaluation context: [TechHavenLabs](https://technavenlabs.com).
+
+CareProof shows how cryptographic hashing and a smart contract registry can establish **tamper-evident** healthcare records **without** storing personal health information on-chain. Only the `keccak256` hash of a normalised record is registered in the contract — descriptive data stays in local SQLite.
+
+**Live repo:** [github.com/ramsja/CareProof](https://github.com/ramsja/CareProof)
+
+---
+
+## Web3 engineering focus
+
+Built for the kind of work a Web3 engineer does when embedding blockchain into an existing product:
+
+| Responsibility | Implementation |
+|----------------|----------------|
+| **Wallet architecture** | Unified state machine (`no_wallet` → `disconnected` → `connecting` → `connected` / `wrong_network`) via Wagmi + injected connector; one-click `wallet_addEthereumChain` for local Hardhat |
+| **Transaction flows** | Full lifecycle: `idle` → `awaiting_signature` → `submitted` → `pending` → `confirmed` \| `rejected` \| `reverted` \| `failed`; user-facing error parsing |
+| **Deployed contract integration** | Hardhat compile/deploy to chain `31337`; ABI typed in app; reads via `useContractReads`; writes via `useWriteContract` + receipt wait |
+| **On-chain application layer** | Register hash, grant/revoke access, deactivate; event decode (`RecordRegistered`, `AccessGranted`, …); health API for RPC + contract readiness |
+| **Collaboration with Full-Stack / Frontend** | Next.js App Router UI + REST API + Prisma off-chain data; clear split: chain holds integrity/access, app holds content |
+
+Key entry points:
+
+```
+hooks/useWalletState.ts      # wallet architecture
+hooks/useTransaction.ts      # transaction lifecycle
+hooks/useContractReads.ts    # on-chain reads
+lib/blockchain/*             # ABI, network, errors, event decoder
+contracts/CareProofRegistry.sol
+contracts/scripts/deploy.ts
+components/blockchain/*      # TX status, access manager, verification UI
+indexer/                     # chain event indexer stub
+```
+
+See also [docs/WEB3.md](docs/WEB3.md) for a recruiter-oriented walkthrough.
 
 ---
 
@@ -18,7 +52,20 @@ CareProof demonstrates how cryptographic hashing and a smart contract registry c
 - **Full transaction lifecycle** — awaiting signature → submitted → pending → confirmed / rejected / reverted
 - **Decoded contract events** — `RecordRegistered`, `AccessGranted`, `AccessRevoked`, `RecordDeactivated`
 - **Activity log** — persistent local record of all blockchain events
-- **Event indexer scaffolding** — `ChainCursor` / `IndexedEvent` models, stub indexer, and `GET /api/indexed-events` (for blockchain-backend evaluation work)
+- **Event indexer scaffolding** — `ChainCursor` / `IndexedEvent` models, stub indexer, and `GET /api/indexed-events`
+
+---
+
+## Stack
+
+| Layer | Tech |
+|-------|------|
+| Frontend | Next.js 14 (App Router), React 18, Tailwind |
+| Web3 client | Wagmi v2, Viem, TanStack Query |
+| Smart contracts | Solidity 0.8.24, Hardhat, ethers v6 |
+| Off-chain data | Prisma + SQLite |
+| Validation | Zod + React Hook Form |
+| Tests | Vitest, Hardhat (contracts), Playwright (e2e) |
 
 ---
 
