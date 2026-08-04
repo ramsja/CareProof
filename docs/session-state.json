@@ -1,52 +1,56 @@
-{
-  "codec_version": "1.0",
-  "project": "CareProof",
-  "repo_local": "C:\\Users\\javier moz\\Desktop\\CareProof",
-  "repo_remote": "https://github.com/ramsja/CareProof",
-  "branch": "main",
-  "goal": "Afinar portfolio Web3: arquitectura de billetera, flujos de TX, contratos desplegados, capa on-chain en Next.js",
-  "last_agent": "grok",
-  "last_updated": "2026-08-04T21:30:00-06:00",
-  "status": "in_progress",
-  "done": [
-    "Publicado en github.com/ramsja/CareProof",
-    "Eliminado token npm de .npmrc; gitignore reforzado",
-    "Fix deploy path: contracts/scripts/deploy.ts",
-    "README Web3 + docs/WEB3.md",
-    "Puente multiagente: CLAUDE.md, HANDOFF, AGENT_CODEC, Z.AI prompts",
-    "Push commit ae3ac10 (docs bridge)"
-  ],
-  "todo": [
-    "Liberar espacio en disco C: si npm install falla",
-    "npm install",
-    "npm run test",
-    "npm run contract:compile && npm run contract:test",
-    "npm run typecheck",
-    "Probar npm run dev (Hardhat + deploy + Next :3000)",
-    "Topics GitHub: web3, nextjs, solidity, hardhat, wagmi, viem",
-    "Texto corto de postulación Web3 (opcional)"
-  ],
-  "blocked": [
-    "Disco C: reportó 'not enough space' al escribir archivos; verificar antes de npm install"
-  ],
-  "files_touched": [
-    "README.md",
-    "package.json",
-    "CLAUDE.md",
-    "AGENTS.md",
-    "docs/WEB3.md",
-    "docs/HANDOFF.md",
-    "docs/AGENT_CODEC.md",
-    "docs/session-state.json",
-    "docs/PROMPTS.md"
-  ],
-  "commands_ok": [
-    "gh repo create/push ramsja/CareProof",
-    "git commit docs bridge"
-  ],
-  "commands_failed": [
-    "npm install (cancelado / posible falta de disco)"
-  ],
-  "next_action": "Verificar espacio libre en C:; luego npm install y npm run test",
-  "notes": "Codec unificado Grok+Claude+Z.AI (chat.z.ai). HANDOFF.md es la narrativa; session-state.json es la fuente de verdad."
+﻿{
+    "codec_version":  "1.0",
+    "project":  "CareProof",
+    "repo_local":  "C:\\Users\\javier moz\\Desktop\\CareProof",
+    "repo_remote":  "https://github.com/ramsja/CareProof",
+    "branch":  "main",
+    "goal":  "Afinar portfolio Web3: arquitectura de billetera, flujos de TX, contratos desplegados, capa on-chain en Next.js",
+    "last_agent":  "grok",
+    "last_updated":  "2026-08-04T16:40:52-06:00",
+    "status":  "in_progress",
+    "done":  [
+                 "Publicado en github.com/ramsja/CareProof",
+                 "Eliminado token npm de .npmrc; gitignore reforzado",
+                 "Fix deploy path: contracts/scripts/deploy.ts",
+                 "README Web3 + docs/WEB3.md",
+                 "Puente multiagente: CLAUDE.md, HANDOFF, AGENT_CODEC, Z.AI prompts",
+                 "Push commit ae3ac10 (docs bridge)",
+                 "npm install OK (1493 packages)",
+                 "unit tests 58/58 passed",
+                 "removed broken animatecss-tailwind-adapter",
+                 "disk cleanup (~0.04GB -\u003e ~12GB then ~4GB after install)"
+             ],
+    "todo":  [
+                 "Liberar espacio en disco C: si npm install falla",
+                 "npm install",
+                 "npm run test",
+                 "npm run contract:compile \u0026\u0026 npm run contract:test",
+                 "npm run typecheck",
+                 "Probar npm run dev (Hardhat + deploy + Next :3000)",
+                 "Topics GitHub: web3, nextjs, solidity, hardhat, wagmi, viem",
+                 "Texto corto de postulaciÃ³n Web3 (opcional)"
+             ],
+    "blocked":  [
+
+                ],
+    "files_touched":  [
+                          "README.md",
+                          "package.json",
+                          "CLAUDE.md",
+                          "AGENTS.md",
+                          "docs/WEB3.md",
+                          "docs/HANDOFF.md",
+                          "docs/AGENT_CODEC.md",
+                          "docs/session-state.json",
+                          "docs/PROMPTS.md"
+                      ],
+    "commands_ok":  [
+                        "gh repo create/push ramsja/CareProof",
+                        "git commit docs bridge"
+                    ],
+    "commands_failed":  [
+                            "npm install (cancelado / posible falta de disco)"
+                        ],
+    "next_action":  "Tras reinicio: npm run contract:test y npm run dev",
+    "notes":  "Codec unificado Grok+Claude+Z.AI (chat.z.ai). HANDOFF.md es la narrativa; session-state.json es la fuente de verdad."
 }

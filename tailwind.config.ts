@@ -256,11 +256,8 @@ const config: Config = {
         },
       });
     }),
-    require('animatecss-tailwind-adapter')({
-    duration: '500ms', // Change default animation duration
-    delay: '1s', // Add default delay
-    iterationCount: '3' // Make animations repeat infinitely
-    })
+    // animatecss-tailwind-adapter removed: its dependency was unpublished from npm.
+    // Core UI uses Tailwind built-ins (animate-pulse, animate-spin).
   ],
 };
 
