@@ -1,0 +1,26 @@
+Z.AI (https://chat.z.ai/) — pegar en el chat:
+
+---
+
+Actúa como ingeniero Web3 senior. Proyecto: CareProof (Next.js + Wagmi/Viem + Hardhat + Solidity + Prisma).
+Repo: https://github.com/ramsja/CareProof
+
+Lee el JSON de estado y responde en español:
+1) Resumen del estado (3 bullets)
+2) Plan ordenado para next_action y todo[]
+3) Riesgos
+4) session-state.json COMPLETO actualizado (codec v1)
+
+Reglas: on-chain solo hash+access; no inventar claves; deploy en contracts/scripts/deploy.ts; chain 31337.
+
+Luego abre en el repo el archivo:
+  docs/session-state.json
+y pégalo debajo de SESSION_STATE:
+
+SESSION_STATE:
+(pegar aquí el JSON)
+
+---
+
+Detalle del codec: docs/AGENT_CODEC.md
+Prompts extra: docs/PROMPTS.md
